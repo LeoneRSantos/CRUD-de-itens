@@ -20,9 +20,12 @@ void main() {
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: const Home(),
+    return ChangeNotifierProvider(
+      create: (_) => ItensProvider(),
+      builder: (context, child) => MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const Home(),
+      ),
     );
   }
 }
