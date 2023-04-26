@@ -37,6 +37,8 @@ class Home extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final List<Item> itens =
         ref.watch(ItensProvider.referenciaItensProvider).getItens;
+    final ItensProvider itensProvider = Provider.of(context);
+    MapaDeItens balancoAtual = MapaDeItens();
 
     return Scaffold(
       appBar: AppBar(
@@ -56,16 +58,11 @@ class Home extends ConsumerWidget {
         ],
         elevation: 0.8,
       ),
-      body: ListView(
-        children: [
-          for (final aux in itens)
-            Card(
-              child: ListTile(
-                title: Text(aux.titulo),
-                subtitle: Text('R\$ ${aux.valor}'),
-              ),
-            ),
-        ],
+      body: ListView.builder(
+        itemCount: itensProvider.quantidadeDeElementos,
+        itemBuilder: (BuildContext context, int index) {
+          return ComponenteCard(item: itensProvider.getIndex(index));
+        },
       ),
     );
   }
