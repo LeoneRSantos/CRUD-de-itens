@@ -1,33 +1,65 @@
+import 'package:crud_de_itens/provider/itens_provider.dart';
+import 'package:crud_de_itens/views/formulario.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'models/item.dart';
+import 'package:provider/provider.dart';
 
-// We create a "provider", which will store a value (here "Hello world").
-// By using a provider, this allows us to mock/override the value exposed.
-final helloWorldProvider = Provider((_) => 'Teste de Riverpod');
 
 void main() {
   runApp(
-    // For widgets to be able to read providers, we need to wrap the entire
-    // application in a "ProviderScope" widget.
-    // This is where the state of our providers will be stored.
     ProviderScope(
       child: MyApp(),
     ),
   );
 }
 
-// Extend ConsumerWidget instead of StatelessWidget, which is exposed by Riverpod
-class MyApp extends ConsumerWidget {
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: const Home(),
+    );
+  }
+}
+
+class Home extends ConsumerWidget {
+  const Home({super.key});
+
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final String value = ref.watch(helloWorldProvider);
+    final List<Item> itens =
+        ref.watch(ItensProvider.referenciaItensProvider).getItens;
 
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(title: const Text('Exemplo')),
-        body: Center(
-          child: Text(value),
-        ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Transações'),
+        actions: [
+          IconButton(
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const Formulario()),
+              );
+            },
+            icon: const Icon(
+              Icons.add,
+            ),
+          ),
+        ],
+        elevation: 0.8,
+      ),
+      body: ListView(
+        children: [
+          for (final aux in itens)
+            Card(
+              child: ListTile(
+                title: Text(aux.titulo),
+                subtitle: Text('R\$ ${aux.valor}'),
+              ),
+            ),
+        ],
       ),
     );
   }
