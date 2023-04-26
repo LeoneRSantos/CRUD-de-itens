@@ -1,10 +1,13 @@
 import 'package:crud_de_itens/provider/itens_provider.dart';
 import 'package:crud_de_itens/views/formulario.dart';
+import 'package:crud_de_itens/widgets/componenteCard.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart'
+    hide ChangeNotifierProvider, Provider;
 import 'models/item.dart';
 import 'package:provider/provider.dart';
 
+import 'models/mapa_itens.dart';
 
 void main() {
   runApp(
