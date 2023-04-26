@@ -1,10 +1,10 @@
 import 'item.dart';
 
 class MapaDeItens {
-  int auxID = 2;
+  int auxID = 3;
 
   final Map<String, Item> _mapa_de_itens = {
-    "1": Item(titulo: "Teste", valor: 100.toString(), tipo: 'Venda'),
+    "1": Item(titulo: "Mesa de escritório", valor: '100.00', tipo: 'venda'),
   };
 
   Map get getDados => _mapa_de_itens;
